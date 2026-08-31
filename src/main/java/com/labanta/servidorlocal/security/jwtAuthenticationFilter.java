@@ -33,7 +33,6 @@ public class jwtAuthenticationFilter extends OncePerRequestFilter {
         if (authHeader == null || !authHeader.startsWith("Bearer") || authHeader.split(" ")[1] == ""
                 || authHeader.split(" ")[1] == "undefined") {
             filterChain.doFilter(request, response);
-
             return;
         }
         // extrair token ignorando os primeiros 7 caracter "Bearer"

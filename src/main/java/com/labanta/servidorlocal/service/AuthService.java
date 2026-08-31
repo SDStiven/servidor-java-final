@@ -44,15 +44,5 @@ public class AuthService {
                 .orElseThrow(() -> new RuntimeException("Utilizador não encontrado"));
     }
 
-    // public String login(LoginRequestDTO dados) {
-    //     UtilizadorModel Utilizador = repository
-    //             .findByUsername(dados.getUsername())
-    //             .orElseThrow(() -> new RuntimeException("Utilizador não encontrado"));
-
-    //     if (!Utilizador.getPassword().equals(dados.getPassword())) {
-    //         throw new RuntimeException("Password incorreta");
-    //     }
-    //     return jwtService.generateToken(Utilizador.getUsername());
-    // }
 
 }
