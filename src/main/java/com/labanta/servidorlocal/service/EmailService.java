@@ -15,18 +15,22 @@ public class EmailService {
 
     
     public void enviarEmailBoasVindas(String EmailDestino, String nomeUtilizador) {
-        // criar um email simples (testo limpo)
-        SimpleMailMessage mensagem = new SimpleMailMessage();
-        
-        mensagem.setTo(EmailDestino);
-        mensagem.setSubject("Bem-vindo ao Marketplace!");
-        mensagem.setText("Olá " + nomeUtilizador + "!\n\n"+
-        "A tua conta foi criada com suceso . já podes fazer login."+
-        "e explorar os nossos serviços .\n\n"+
-        "Com os melhores cumprimentos,\nEquipe do Marketplace");
-        
-        // enviar!
-        mailSender.send(mensagem);
+        try {
+            // criar um email simples (testo limpo)
+            SimpleMailMessage mensagem = new SimpleMailMessage();
+
+            mensagem.setTo(EmailDestino);
+            mensagem.setSubject("Bem-vindo ao Marketplace!");
+            mensagem.setText("Olá " + nomeUtilizador + "!\n\n" +
+                    "A tua conta foi criada com suceso . já podes fazer login." +
+                    "e explorar os nossos serviços .\n\n" +
+                    "Com os melhores cumprimentos,\nEquipe do Marketplace");
+
+            // enviar!
+            mailSender.send(mensagem);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public void enviarEmailOrcamento(String emailDestino, String nomeServico, Double precoConvertido, String moeda) {
