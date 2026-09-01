@@ -11,6 +11,7 @@ import com.labanta.servidorlocal.service.GeoServiceService;
 
 import io.swagger.v3.oas.annotations.Operation;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -59,6 +60,12 @@ public class AuthController {
     public UtilizadorModel registar(@RequestBody RegistoRequestDTO dados) {
         return authService.registarUtilizador(dados);
     }
+
+    @GetMapping("/teste")
+    public ResponseEntity<String> teste (@Value("${spring.mail.username}") String username, @Value("${spring.mail.password}") String password , @Value("${spring.datasource.username}") String dbuser) {
+        return ResponseEntity.ok("username: " + username + " " + "password: " + password + " " +  "DB_USERNAME: "  + dbuser );
+    }
+
 
     @Operation(
             summary = "alerta-login",

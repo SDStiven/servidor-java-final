@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
+
 @Component
 public class CustomAuthenticatioEntryPoint implements AuthenticationEntryPoint {
 
@@ -18,7 +19,7 @@ public class CustomAuthenticatioEntryPoint implements AuthenticationEntryPoint {
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 
         response.setContentType("application/json");
-
-        response.getWriter().write("{\"Erro\":\"Erro ao autenticar no servidor.\", \"Detalhes\":\"Token inexistente ou inválido\"}");
+        System.out.println();response.getWriter().write("{\"Erro\":\"Erro ao autenticar no servidor.\", \"Detalhes\":\"Token inexistente ou inválido\"}");
     }
 }
+

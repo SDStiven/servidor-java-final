@@ -22,46 +22,45 @@ public class jwtAuthenticationFilter extends OncePerRequestFilter {
     }
 
     @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+        String path = request.getServletPath();
+        return path.startsWith("/api/auth/") || 
+               path.startsWith("/v3/api-docs") || 
+               path.startsWith("/swagger-ui") || 
+               path.equals("/swagger-ui.html");
+    }
+
+    @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
 
         String authHeader = request.getHeader("Authorization");
-        // token: "Bearer usciushusduugdoscg"
-        // token: "Bearer "
-        // token: null
 
-        if (authHeader == null || !authHeader.startsWith("Bearer") || authHeader.split(" ")[1] == ""
-                || authHeader.split(" ")[1] == "undefined") {
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
             return;
         }
-        // extrair token ignorando os primeiros 7 caracter "Bearer"
-        String token = authHeader.substring(7);
 
-        // ignorar token vazio ou "undefine"(ex: frontend mal comfigurado)
-        if (token.isEmpty() || token.equals("undefined")) {
+        String token = authHeader.substring(7).trim();
 
+        if (token.isEmpty() || token.equalsIgnoreCase("undefined") || token.equalsIgnoreCase("null")) {
             filterChain.doFilter(request, response);
-
             return;
         }
 
         try {
-            // Extreir o user name do token (ista tambem valida a assinatura e a expiração)
+            // Extrair o username do token (valida assinatura e expiração)
             String username = jwtService.extrairUsername(token);
 
-            // se o username é valido e ainda não ha autenticação no contexto
             if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-                // Dizer a spring que este utilizador esta autenticado
-                UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(username, null,
-                        new ArrayList<>());
+                UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
+                        username, null, new ArrayList<>());
                 SecurityContextHolder.getContext().setAuthentication(authToken);
-
             }
         } catch (Exception e) {
-            // Tooken invalido ou expirou- nao autenticar ,o spring vai devolver 401
+            System.err.println("Erro ao processar token JWT: " + e.getMessage());
         }
-        filterChain.doFilter(request, response);
 
+        filterChain.doFilter(request, response);
     }
 }
