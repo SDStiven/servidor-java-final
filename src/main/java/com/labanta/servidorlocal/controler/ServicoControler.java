@@ -115,7 +115,7 @@ public class ServicoControler {
         Double precoConvertido = exchangeService.converterPreco(servico.getPreco(), moeda);
 
         // 3. Enviar o resultado para o Gmail do cliente (Aula 15)
-        emailService.enviarEmailOrcamento(emailDestino, servico.getTitulo(), precoConvertido, moeda);
+        //emailService.enviarEmailOrcamento(emailDestino, servico.getTitulo(), precoConvertido, moeda);
 
         return "Orçamento calculado e enviado com sucesso para " + emailDestino + "!";
     }

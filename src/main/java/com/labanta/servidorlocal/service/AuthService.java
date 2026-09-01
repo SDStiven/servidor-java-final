@@ -33,7 +33,7 @@ public class AuthService {
         novoutilizador.setEmail(dados.getEmail());
         novoutilizador.setPassword(dados.getPassword());
 
-        emailService.enviarEmailBoasVindas(novoutilizador.getEmail(), novoutilizador.getUsername());
+        //emailService.enviarEmailBoasVindas(novoutilizador.getEmail(), novoutilizador.getUsername());
 
         return repository.save(novoutilizador);
     }
