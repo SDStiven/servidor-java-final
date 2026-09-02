@@ -60,7 +60,7 @@ public class SecurityConfig {
 
         CorsConfiguration config = new CorsConfiguration();
 
-        config.setAllowedOrigins(List.of("http://localhost:3000","http://localhost:5173"));
+        config.setAllowedOrigins(List.of("http://localhost:5173","https://market-servi-os.vercel.app"));
         config.setAllowedMethods(List.of("GET","POST","PUT","DELETE", "OPTIONS"));
         config.setAllowCredentials(true);
         config.setAllowedHeaders(List.of("Authorization", "Content-Type"));
